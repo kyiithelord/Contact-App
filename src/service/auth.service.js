@@ -10,9 +10,13 @@ export const Register = async (data) => {
   }
 };
 
-export const Login = async (data) => {
+export const Login = async (formData) => {
   try {
-    const res = await api.post("/login", data);
+    const res = await api.post("/login", formData);
+    const { data } = res;
+    localStorage.setItem("auth", JSON.stringify(data.token));
+    if (data.token) {
+    }
     return res;
   } catch (e) {
     return { error: true, msg: e.message };

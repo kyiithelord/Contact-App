@@ -5,6 +5,7 @@ import {
   ButtonComponents,
   ErrorComponents,
   LoadingComponents,
+  PreventComponents,
 } from "../components";
 import { useNavigate } from "react-router-dom";
 import useApi from "../hook/useApi";
@@ -26,51 +27,53 @@ const LoginPage = () => {
     handleDealApi(formData);
   };
   return (
-    <ContainerComponents>
-      {loading ? (
-        <LoadingComponents />
-      ) : (
-        <div className="center">
-          <div className="w-2/6 h-auto">
-            <h1 className="font-serif text-2xl text-center">
-              Login Your Contact
-            </h1>
+    <PreventComponents fail={"/home"} check={localStorage.getItem("auth")}>
+      <ContainerComponents>
+        {loading ? (
+          <LoadingComponents />
+        ) : (
+          <div className="center">
+            <div className="w-2/6 h-auto">
+              <h1 className="font-serif text-2xl text-center">
+                Login Your Contact
+              </h1>
 
-            {error && <ErrorComponents>{error}</ErrorComponents>}
+              {error && <ErrorComponents>{error}</ErrorComponents>}
 
-            <form onSubmit={handleSubmit} className="space-y-7 mt-5">
-              <FormComponents
-                value={formData.email}
-                onChange={handleInputChange}
-                name={"email"}
-                type={"email"}
-                label={"Enter Your Email"}
-                placeholder="example@gmail.com"
-              />
-              <FormComponents
-                value={formData.password}
-                onChange={handleInputChange}
-                name={"password"}
-                type={"password"}
-                label={"Password"}
-              />
-              <ButtonComponents style={"!rounded-lg"} type="submit">
-                Login
-              </ButtonComponents>
-            </form>
-            <p className="mt-5">
-              You haven't account please Register{" "}
-              <button
-                className="text-blue-400 underline"
-                onClick={() => nav("/register")}
-              >
-                Register
-              </button>{" "}
-            </p>
+              <form onSubmit={handleSubmit} className="space-y-7 mt-5">
+                <FormComponents
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  name={"email"}
+                  type={"email"}
+                  label={"Enter Your Email"}
+                  placeholder="example@gmail.com"
+                />
+                <FormComponents
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  name={"password"}
+                  type={"password"}
+                  label={"Password"}
+                />
+                <ButtonComponents style={"!rounded-lg"} type="submit">
+                  Login
+                </ButtonComponents>
+              </form>
+              <p className="mt-5">
+                You haven't account please Register{" "}
+                <button
+                  className="text-blue-400 underline"
+                  onClick={() => nav("/register")}
+                >
+                  Register
+                </button>{" "}
+              </p>
+            </div>
           </div>
-        </div>
-      )}
-    </ContainerComponents>
+        )}
+      </ContainerComponents>
+    </PreventComponents>
   );
 };
 
