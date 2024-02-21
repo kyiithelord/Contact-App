@@ -33,3 +33,14 @@ export const getSingleContact = async (id) => {
     return { error: true, msg: e.message };
   }
 };
+
+export const editContact = async (id, formData) => {
+  try {
+    const res = await api.put(`/contact/${id}`, formData);
+    if (res.data) {
+      return true;
+    }
+  } catch (e) {
+    return { error: true, msg: e.message };
+  }
+};
