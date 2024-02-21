@@ -44,3 +44,14 @@ export const editContact = async (id, formData) => {
     return { error: true, msg: e.message };
   }
 };
+
+export const deleteContact = async (id) => {
+  try {
+    const res = await api.delete(`/contact/${id}`);
+    if (res.data) {
+      return true;
+    }
+  } catch (e) {
+    return { error: true, msg: e.message };
+  }
+};

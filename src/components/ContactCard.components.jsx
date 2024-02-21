@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { CiEdit } from "react-icons/ci";
+import { CiEdit, CiTrash } from "react-icons/ci";
+import { deleteContact } from "../service/contact.service";
 
-const ContactCardComponents = ({ data }) => {
+const ContactCardComponents = ({ data, handleDelete }) => {
   const nav = useNavigate();
   const handleReDirect = () => {
     nav(`/home/contact/${data.id}`);
@@ -18,9 +19,12 @@ const ContactCardComponents = ({ data }) => {
           <p>{data.phone}</p>
         </div>
       </button>
-      <div>
+      <div className="space-x-5">
         <button onClick={handleEdit}>
           <CiEdit />
+        </button>
+        <button onClick={handleDelete.bind(this, data.id)}>
+          <CiTrash />
         </button>
       </div>
     </div>
